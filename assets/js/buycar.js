@@ -31,7 +31,7 @@ function pass_data(info) {
     var info_count = [];	// list for each item count
     for (i = 0; i < info_spl.length - 1; i++) {
         info_id.push(info_spl[i].split("_")[0]);
-        info_imgpath.push("static/saleimg/sale" + info_id[i].split(":")[1] + ".jpg");
+        info_imgpath.push("saleimg/sale" + info_id[i].split(":")[1] + ".jpg");
         info_name.push(info_spl[i].split("_")[1]);
         info_size.push(info_spl[i].split("_")[2]);
         info_price.push(info_spl[i].split("_")[3]);
@@ -141,7 +141,7 @@ function onlyNumberKey(evt) {
 }
 
 function get_711() {
-    fetch("static/dataset/dataseven.json")	// reload 7-11 dataset
+    fetch("dataset/dataseven.json")	// reload 7-11 dataset
         .then(response => {
             return response.json();
         })
@@ -154,7 +154,7 @@ function get_711() {
 }
 
 function get_familymart() {
-    fetch("static/dataset/datafm.json")	// reload family mart dataset
+    fetch("dataset/datafm.json")	// reload family mart dataset
         .then(response => {
             return response.json();
         })
@@ -168,7 +168,7 @@ function get_familymart() {
 
 
 function get_town() {
-    fetch("static/dataset/citytowndata.json")	// reload taiwan 
+    fetch("dataset/citytowndata.json")	// reload taiwan 
         .then(response => {
             return response.json();
         })
