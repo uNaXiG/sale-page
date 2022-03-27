@@ -123,9 +123,11 @@ function pass_data(info) {
     get_711();
     get_familymart();
 
+    /*
     // 等讀取完所有商家資料才將mask拿掉 //
     var x = document.getElementById("mask");
     x.remove();
+    */
     send_msg = info + "total price:";
     //var post_str_2 = send_msg;
     document.getElementById("send_str_2").value = send_msg;
