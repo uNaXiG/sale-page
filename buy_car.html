@@ -9,7 +9,7 @@
 <head>
 	<title>訂單資訊</title>
 	<meta charset="utf-8" content="width=device-width" />
-	<link rel="icon" href="static/favicon.ico" type="image/x-icon" />
+	<link rel="icon" href="favicon.ico" type="image/x-icon" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="assets/css/main.css" />
 	<style>
@@ -28,7 +28,7 @@
 	</style>
 </head>
 
-<body class="is-preload">
+<body class="is-preload" onload="load_info()">
 
 	<!-- Wrapper -->
 	<div id="wrapper">
@@ -161,7 +161,7 @@
 	<script src="assets/js/breakpoints.min.js"></script>
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
-	<script src="assets/js/manager.js"></script>
+	<script src="assets/js/buycar.js"></script>
 	<script>
 		function load_info() {
 			var info = "{{strinfo}}";
