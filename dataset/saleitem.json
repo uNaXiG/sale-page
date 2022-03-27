@@ -1,0 +1,58 @@
+﻿{
+    "items": [
+        {
+            "id": "0",
+            "src": "sale0.jpg",
+            "name": "輕飄飄柔軟T",
+            "introduce": "這是一件不錯的衣服，很好看，適合正妹穿。還不快買，在等什麼？",
+            "size": "M,L,XL",
+            "remaining": "8,13,15",
+            "price": "199"
+        },
+        {
+            "id": "1",
+            "src": "sale1.jpg",
+            "name": "短短的T恤",
+            "introduce": "很普通的短素 T ，非常適合乾淨的你穿！",
+            "size": "S,M",
+            "remaining": "10,12",
+            "price": "99"
+        },
+        {
+            "id": "2",
+            "src": "sale2.jpg",
+            "name": "溫暖風牛仔外套",
+            "introduce": "除了看起來溫暖以外，更能夠在冷冷的天氣裡，給你溫暖。",
+            "size": "XS,M,L",
+            "remaining": "12,7,7",
+            "price": "299"
+        },
+        {
+            "id": "3",
+            "src": "sale3.jpg",
+            "name": "輕飄飄小洋裝",
+            "introduce": "輕盈又自在的設計，又不失典雅風格，穿上去給人的感覺既輕鬆，又甜美。",
+            "size": "M",
+            "remaining": "12",
+            "price": "399"
+        },
+        {
+            "id": "4",
+            "src": "sale4.jpg",
+            "name": "毛茸茸溫暖長袖",
+            "introduce": "很舒服的質料，一定會讓你愛不釋手，無論何時都想穿它出門。",
+            "size": "S,M,L,XL",
+            "remaining": "4,5,6,7",
+            "price": "399"
+        },
+        {
+            "id": "5",
+            "src": "sale5.jpg",
+            "name": "質感辦公室風長裙",
+            "introduce": "時尚的設計及剪裁，很適合上班族穿，因為它很舒適。",
+            "size": "M,L",
+            "remaining": "12,10",
+            "price": "499"
+        }
+    ]
+}

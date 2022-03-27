@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<header>
+    <title>訂單送出</title>
+    <meta charset="utf-8" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
+</header>
+
+<body class="is-preload" onload="check()">
+    <div id="wrapper">
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+                <!-- Section -->
+                <section id="sec">
+                    <header class="major" id="h">
+                        <img id="img" src="/static/images/loading.gif">
+                        <h2 id="tit"></h2>
+                    </header>
+                    <form method="POST" enctype="multipart/form-data">
+                        <div id="parent">
+                            <input type="text" name="order_info" id="send_txt" style="display:none;">
+                        </div>
+                    </form>
+                    <div id="show_bank" style="display: none;">
+                        <h2 id="toshow"></h2>
+                        <img src="/static/images/bank.jpg"
+                            style="border:2px powderblue dashed;height: 400px; width: auto;">
+                        <!--input type="button" id="save_odr" value="保存訂單資訊" onclick="save_odr()"-->
+                    </div>
+                </section>
+            </div>
+        </div>
+
+</body>
+
+
+<script>
+    {
+        var count = 0;
+        var order_info = "{{order_info}}";
+        var invalid_cnt = "{{invalid_cnt}}";
+        var order_code = "{{code}}";
+        var price = "{{price}}";
+        var today = getLastOrNextFewDateBy(0);
+        var limit_date = getLastOrNextFewDateBy(3);
+    }
+    function check() {
+        document.getElementById("send_txt").value = "訂單編號:" + order_code + "," + order_info + ",訂購日期:" + today + ",繳費期限:" + limit_date;
+
+        document.getElementById("tit").textContent = "訂單資訊檢查中...請勿離開或關閉本頁面...";
+        var spl = order_info.split(",");
+        var spl_len = spl.length;
+        var parent = document.getElementById("parent");
+        var timer = setInterval(
+            function () {
+                if (count < spl_len) {
+                    var h3 = document.createElement("h3");
+                    var contant = "";
+                    if (spl[count].indexOf("id:") > -1) {
+                        if (count == 3) {
+                            var h31 = document.createElement("h3");
+                            textnode = document.createTextNode("訂購商品 : ")
+                            h31.appendChild(textnode);
+                            parent.appendChild(h31);
+                        }
+                        contant = spl[count].split(" ")[1];
+                        contant_spl = contant.split("_");
+                        contant = "";
+                        var temp_str = "";
+                        for (i = 0; i < contant_spl.length; i++) {
+                            if (contant_spl[i].indexOf("size") > -1) {
+                                temp_str = contant_spl[i].replace("size", "、尺寸");
+                            }
+                            else if (contant_spl[i].indexOf("price") > -1) {
+                                temp_str = contant_spl[i].replace("price", "、價錢");
+                            }
+                            else if (contant_spl[i].indexOf("count") > -1) {
+                                temp_str = contant_spl[i].replace("count", "、數量");
+                            }
+                            else temp_str = contant_spl[i];
+                            contant += temp_str;
+                        }
+                    }
+                    else {
+                        if (spl[count].indexOf("total price") > -1) {
+                            contant = "總金額:" + spl[count].split(":")[1] + "(包含運費)";
+                        }
+                        else contant = spl[count];
+                    }
+                    textnode = document.createTextNode(contant);
+                    h3.appendChild(textnode);
+                    parent.appendChild(h3);
+                    count++;
+                }
+
+                else {
+                    clearInterval(timer);
+                    document.getElementById("img").remove();
+                    document.getElementById("parent").remove();
+                    var img = document.createElement("img");
+                    img.setAttribute("src", "/static/images/checked.png");
+                    document.getElementById("tit").appendChild(img);
+                    document.getElementById("tit").textContent = "訂單確認完成";
+                    if (parseInt(invalid_cnt) == 0) {
+
+                        limit_date = getLastOrNextFewDateBy(2);
+                        document.getElementById("h").setAttribute("style", "display: none;");
+                        document.getElementById("show_bank").setAttribute("style", "display: initial;");
+                        document.getElementById("toshow").innerHTML = "訂單已成立<br>訂單編號為 : " + order_code + "<br>應付金額為$ " + price + "<br>請您於 3 天內(" + limit_date + " 23:59:59 前)付款完畢，方可出貨，逾期系統將自動取消訂單<br>並請勿重新繳款，以免發生錯誤以及損失。";
+                        alert("訂單成立！");
+
+                    }
+                    else {
+                        alert("您有" + invalid_cnt.toString() + "件商品庫存目前不足，可能在您猶豫的幾秒內，被別人搶先一步了 QQ\n因此訂單尚未成立，請重新操作。");
+                        var cancel_btn = document.createElement("input");
+                        cancel_btn.setAttribute("type", "button");
+                        cancel_btn.setAttribute("onclick", "cancel()");
+                        cancel_btn.setAttribute("style", "width:auto; margin:10px;");
+                        cancel_btn.setAttribute("value", "取消訂單");
+                        parent.appendChild(cancel_btn);
+
+                    }
+                }
+            }, 500);
+    }
+
+    function cancel() {
+        javascript: window.close('', '_parent', '');
+    }
+
+    // 獲取日期 //
+    function getLastOrNextFewDateBy(day) {
+        var today = new Date();
+        var lastOrNextDate = today.getTime() + 1000 * 60 * 60 * 24 * day;
+        today.setTime(lastOrNextDate);
+        var year = today.getFullYear();
+        var month = today.getMonth() + 1;
+        var date = today.getDate();
+        month = month < 10 ? '0' + month : month;
+        date = date < 10 ? '0' + date : date;
+        return year + "-" + month + "-" + date;
+    }
+
+    function save_odr() {
+        var odr = document.getElementById("send_txt").value;
+        console.log(odr);
+    }
+</script>
+
+
+<!-- Scripts -->
+<script src="{{ url_for('static',filename='assets/js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static',filename='assets/js/browser.min.js') }}"></script>
+<script src="{{ url_for('static',filename='assets/js/breakpoints.min.js') }}"></script>
+<script src="{{ url_for('static',filename='assets/js/util.js') }}"></script>
+<script src="{{ url_for('static',filename='assets/js/main.js') }}"></script>
+
+</html>

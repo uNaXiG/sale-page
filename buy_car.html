@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+	<title>訂單資訊</title>
+	<meta charset="utf-8" content="width=device-width" />
+	<link rel="icon" href="static/favicon.ico" type="image/x-icon" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<style>
+		div.mask {
+			position: absolute;
+			z-index: 10000000;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-size: cover;
+			-webkit-mask-size: contain;
+			mask-size: contain;
+			background-color: rgba(0, 0, 0, 0.15);
+		}
+	</style>
+</head>
+
+<body class="is-preload">
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<div id="main">
+			<div class="inner">
+				<!-- Section -->
+				<section>
+					<header class="major">
+						<h2>購物車內容</h2>
+					</header>
+					<!--contant-->
+					<form method="POST" enctype="multipart/form-data">
+						<table style="table-layout: fixed;">
+							<thead>
+								<tr>
+									<th></th>
+									<th style="text-align: left;">商品名稱</th>
+									<th style="text-align: left;">尺寸</th>
+									<th style="text-align: left;">單價</th>
+									<th style="text-align : left;">數量</th>
+								</tr>
+							</thead>
+							<tbody id="car_body">
+								<!--items-->
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="3"></td>
+									<td style="text-align : end;">總金額 </td>
+									<td id="total_price_in_car" style="text-align : end;">$0</td>
+								</tr>
+								<tr>
+									<input type="text" name="post_str" style="display: none;" id="send_str" value="">
+								</tr>
+							</tfoot>
+						</table>
+					</form>
+				</section>
+
+				<section>
+					<header class="major">
+						<h2>配送資料填寫</h2>
+					</header>
+					<form method="post" action="#">
+						<input type="text" name="post_str_2" style="display: none;" id="send_str_2" value="123">
+						<div class="row gtr-uniform">
+							<div class="col-4 col-12-xsmall">
+								<input type="text" name="name" id="name" value="" placeholder="Name" required />
+								<span class="validity"></span>
+							</div>
+							<div class="col-4 col-12-xsmall">
+								<input type="tel" name="phone" id="phone" value="" placeholder="Phone" min="10"
+									minlength="10" maxlength="10" />
+								<span class="validity"></span>
+							</div>
+							<div class="col-4 col-12-xsmall">
+								<input type="email" name="email" id="email" value="" placeholder="Email" required />
+								<span class="validity"></span>
+							</div>
+
+							<!-- Break -->
+							<div class="col-3 col-12-xsmall">
+								<select name="demo-category" id="select_1" onchange="select1()">
+									<option value="">====選擇配送方式====</option>
+									<option value="0:統一超商">統一超商 7-11 (運費 +60)</option>
+									<option value="1:全家便利商店">全家便利商店 (運費 +60)</option>
+									<option value="2:宅配郵寄">宅配郵寄 (運費 +80)</option>
+								</select>
+							</div>
+							<div class="col-3 col-12-xsmall">
+								<select name="demo-category" id="select_2" onchange="select2()">
+									<option value="">====選擇縣市====</option>
+								</select>
+							</div>
+							<div class="col-3 col-12-xsmall">
+								<select name="demo-category" id="select_3" onchange="select3()">
+									<option value="">====鄉鎮市區====</option>
+								</select>
+							</div>
+							<div class="col-3 col-12-xsmall">
+								<select name="demo-category" id="select_4" onchange="select4()">
+									<option value="">====選擇店名====</option>
+								</select>
+							</div>
+							<div class="col-12">
+								<input type="text" name="name" id="addr" value="" placeholder="地址" required />
+								<span class="validity"></span>
+							</div>
+							<!-- Break -->
+							<div class="col-4 col-12-small">
+								<ul class="actions">
+
+									<li><input type="submit" name="send" value="送出訂單" class="primary"
+										onclick="send_fun()"/></li>
+									<li><input type="reset" value="全部清除" /></li>
+								</ul>
+								<input type="checkbox" id="demo-copy" name="demo-copy" checked="true">
+								<!--label for="demo-copy">保存訂單收據</label-->
+							</div>
+						</div>
+					</form>
+
+				</section>
+
+				<!-- Section -->
+				<section>
+					<header class="major">
+						<h2>聯絡我們</h2>
+					</header>
+					<ul class="contact">
+						<li class="icon solid fa-envelope"><a href="#">4a639062@stust.edu.tw</a></li>
+						<li class="icon solid fa-phone">(+886) 123456789</li>
+						<li class="icon solid fa-home">100台北市中正區重慶南路一段122號</li>
+					</ul>
+				</section>
+
+				<!-- Footer -->
+				<footer id="footer">
+					<p style="text-align: center;" class="copyright">&copy; Web Design : Liao yo Xiang</p>
+				</footer>
+			</div>
+		</div>
+	</div>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+	<script src="assets/js/manager.js"></script>
+	<script>
+		function load_info() {
+			var info = "{{strinfo}}";
+			pass_data(info);
+		}
+	</script>
+	<!--<div id="mask" class="mask"></div-->
+
+</body>
+
+</html>
